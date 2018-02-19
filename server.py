@@ -13,7 +13,7 @@ def index():
 	if session.get('activities') == None:
 		session['activities'] = []
 
-
+	print session['activities']
 
 	return render_template('index.html')
 
@@ -43,6 +43,8 @@ def process_money():
 				session['activities'].append(('Earned ' + str(rand) + ' golds from the ' + building + '! (' + datetime.now().strftime('%Y/%m/%d %I:%M %p') + ')', 'green'))
 		else:
 			session['activities'].append(('You dont have enough golds to enter the casino. You must have at least 50. (' + datetime.now().strftime('%Y/%m/%d %I:%M %p') + ')', 'red'))
+			session.modified = True
+
 	else:
 		session['gold'] = 0
 		session['activities'].append(('Cheaters never prosper. (' + datetime.now().strftime('%Y/%m/%d %I:%M %p') + ')', 'red'))
