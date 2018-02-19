@@ -2,19 +2,22 @@
 <html>
 <head>
 	<title>Ninja Gold</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
 	<div class="container">
 		
-		<div class="gold"></div>
+		<div class="gold">
+			<p>Your Gold: <span id="gold-amount">{{ session['gold'] }}</span></p>
+		</div>
 		<div class="building-container">
 			<div class="building">
 				<h3>Farm</h3>
 				<p>(earns 10-20 golds)</p>
 				<form action="/process_money" method="post">
 				 	<input type="hidden" name="building" value="farm" />
-				 	<input type="submit" value="Find Gold!"/>
+				 	<input type="submit" value="Find Gold!" class="button" />
 				</form>
 			</div>
 			<div class="building">
@@ -22,15 +25,15 @@
 				<p>(earns 5-10 golds)</p>
 				<form action="/process_money" method="post">
 				 	<input type="hidden" name="building" value="cave" />
-				 	<input type="submit" value="Find Gold!"/>
+				 	<input type="submit" value="Find Gold!" class="button" />
 				</form>
 			</div>
 			<div class="building">
 				<h3>House</h3>
 				<p>(earns 2-5 golds)</p>
 				<form action="/process_money" method="post">
-				 	<input type="hidden" name="building" value="cave" />
-				 	<input type="submit" value="Find Gold!"/>
+				 	<input type="hidden" name="building" value="house" />
+				 	<input type="submit" value="Find Gold!" class="button" />
 				</form>
 			</div>
 			<div class="building">
@@ -38,17 +41,33 @@
 				<p>(earns/takes 0-50 golds)</p>
 				<form action="/process_money" method="post">
 				 	<input type="hidden" name="building" value="casino" />
-				 	<input type="submit" value="Find Gold!"/>
+				 	<input type="submit" value="Find Gold!" class="button" />
 				</form>
 			</div>
 		</div>
 
 		<div class="activities">
 			<p>Activities:</p>
-			<div id="activities-box"></div>
+			<div id="activities-box">
+				{% for (a, c) in session['activities']: %}
+				<span class=" {{ c }} ">{{ a }}</span>
+				{% endfor %}
+			</div>
 		</div>
+		<br />
+		<br />
+		<br />
+		<br />
+		<a href="/reset" class="button">Reset</a>
 
 	</div>
+
+	<script>
+		
+		var element = document.getElementById("activities-box");
+		element.scrollTop = element.scrollHeight;
+
+	</script>
 
 </body>
 </html>
